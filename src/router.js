@@ -29,17 +29,17 @@ export default new Router({
   },
   {
     name: 'cart',
-    path: 'cart',
+    path: '/cart',
     component: Cart,
   },
   {
     name: 'login',
-    path: 'login',
+    path: '/login',
     component: Login,
   },
   {
     name: 'detail',
-    path: 'detail',
+    path: '/detail',
     component: Detail,
   },
 
