@@ -6,9 +6,10 @@ Vue.use(Router)
 // 嵌套组件
 import Home from './views/Tabbar/Home'
 import Classify from './views/Tabbar/Classify'
-import Cart from './views/Cart'
+import Cart from './views/Tabbar/Cart'
 import Login from './views/Login'
 import Detail from './views/Detail'
+import Reg from './views/Reg'
 export default new Router({
   routes: [{
     path: '/tabbar',
@@ -24,23 +25,29 @@ export default new Router({
       path: 'classify',
       component: Classify,
     },
+    {
+      name: 'cart',
+      path: 'cart',
+      component: Cart,
+    },
 
     ],
   },
-  {
-    name: 'cart',
-    path: 'cart',
-    component: Cart,
-  },
+  
   {
     name: 'login',
-    path: 'login',
+    path: '/login',
     component: Login,
   },
   {
     name: 'detail',
-    path: 'detail',
+    path: '/detail',
     component: Detail,
+  },
+  {
+    name: 'reg',
+    path: '/reg',
+    component:Reg,
   },
 
   // 重定向
