@@ -1,40 +1,38 @@
 <template>
   <div class="home">
-       <!-- 把路由组件缓存到内存里面 -->
+    <!-- 把路由组件缓存到内存里面 -->
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
     <!-- 标签栏 -->
-      <van-tabbar v-model="active">
-          <van-tabbar-item to="home">
-            <van-icon name="home-o" size="22px"/><br/>
-            首页
-            </van-tabbar-item>
-          <van-tabbar-item to="classify">
-            <van-icon name="apps-o" size="22px"/><br/>
-            分类
-            </van-tabbar-item>
-          <van-tabbar-item to="cart">
-            <van-icon name="shopping-cart-o" size="22px"/><br/>
-            购物车
-            </van-tabbar-item>
-          <van-tabbar-item to="order">
-            <van-icon name="bill-o" size="22px"/><br/>
-            订单
-            </van-tabbar-item>
-          <van-tabbar-item to="mine">
-             <van-icon name="manager" size="22px"/><br/>
-            我的</van-tabbar-item>
-      </van-tabbar>
+    <van-tabbar v-model="active">
+      <van-tabbar-item to="home">
+        <van-icon name="home-o" size="22px" />
+        <br />首页
+      </van-tabbar-item>
+      <van-tabbar-item to="classify">
+        <van-icon name="apps-o" size="22px" />
+        <br />分类
+      </van-tabbar-item>
+      <van-tabbar-item to="cart">
+        <van-icon name="shopping-cart-o" size="22px" />
+        <br />购物车
+      </van-tabbar-item>
+
+      <van-tabbar-item to="mine">
+        <van-icon name="manager" size="22px" />
+        <br />我的
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 <script>
 // @ is an alias to /src
 
 export default {
-   data(){
-     return{
-       active: 0,
+  data() {
+    return {
+      active: 0
       //  tabbarsItems:[
       //    {
       //     title: "首页",
@@ -47,7 +45,7 @@ export default {
       //     title: "分类",
       //     url: "classify",
       //     className: "el-icon-menu"
-      //   },   
+      //   },
       //   {
       //     title: "购物车",
       //     url: "cart",
@@ -64,10 +62,9 @@ export default {
       //     className: "el-icon-user-solid"
       //   },
       //  ]
-      
-     }
-   },
-     methods: {
+    };
+  },
+  methods: {
     navTo(name) {
       // 编程式导航
       this.$router.push({
@@ -75,6 +72,11 @@ export default {
       });
     }
   }
-  
-}
+};
 </script>
+
+<style scoped>
+.home {
+  height: 50px;
+}
+</style>
