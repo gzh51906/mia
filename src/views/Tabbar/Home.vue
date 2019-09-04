@@ -7,7 +7,7 @@
           <span class="font">进口母婴正品特卖</span>
         </van-col>
         <van-col span="4">
-          <span class="search"></span>
+          <span class="search" @click="skiplist()"></span>
         </van-col>
       </van-row>
       <van-row class="swipe">
@@ -30,8 +30,8 @@
       <div class="tab">
         <ul>
           <li v-for="item in tabData" :key="item.pid" @click="change(item.pid,item.active)">
-            <div class="time active">{{item.tab_time}}</div>
-            <div class="font activefont">{{1234}}</div>
+            <div class="time" :class="'acitve'">{{item.tab_time}}</div>
+            <div class="font" :class="'activefont'">{{"限时秒杀"}}</div>
           </li>
         </ul>
       </div>
@@ -40,7 +40,7 @@
         <div class="flex">
           <div>
             <ul>
-              <li v-for="item in shopsData" :key="item.item_id">
+              <li v-for="item in shopsData" :key="item.item_id" @click="skip()">
                 <div class="simg">
                   <img :src="item.pic" />
                 </div>
@@ -81,6 +81,7 @@
                 v-for="item in shopsData"
                 :key="item.item_id"
                 style="height:150px; text-align:center"
+                @click="skip()"
               >
                 <div class="simg" style="position:relative">
                   <span
@@ -172,6 +173,13 @@ export default {
     };
   },
   methods: {
+    skip() {
+      this.$router.push("/cart");
+    },
+    skiplist() {
+      this.$router.push("/classify");
+    },
+
     change: async function(id, active) {
       let shops = await this.$axios.get(
         `https://m.mia.com/instant/seckill/seckillPromotionItem/${id}/${active}`
@@ -197,7 +205,7 @@ export default {
     this.tabData = data;
     this.shopsData = shops.data.item_list.slice(0, 16);
     this.m_itemList = listdata.data.res.rank[0].rank_item_list;
-    console.log(listdata.data.res.rank[0].rank_item_list);
+    console.log(this.tabData);
   }
 };
 </script>

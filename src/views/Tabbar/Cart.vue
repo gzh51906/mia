@@ -38,7 +38,7 @@
                   ref="selectOne"
                    @click="selectOneGoods(index)
           >-->
-          <input type="checkbox" class="select" />
+          <input type="checkbox" class="select" v-model="item.status" @change="checkAll" />
           <van-card
             price="89.00"
             desc="绿色"
@@ -87,7 +87,7 @@
                 <van-radio name="1" 
                 checked-color="#999">全选</van-radio>
           </van-radio-group>-->
-          <input type="checkbox" />
+          <input type="checkbox" v-model="active" @change="changeAll" />
           <span>全选</span>
         </div>
         <div class="box-flex-c md newCart">
@@ -120,11 +120,30 @@ export default {
       radio: "1",
       value: "",
       isok1: "",
-      goodslist: [1, 2]
+      goodslist: [{ id: 1 }, { id: 2 }],
+
+      active: false
     };
   },
   computed: {},
   methods: {
+    changeAll() {
+     
+      for (let i in this.goodslist) {
+        this.goodslist[i].status = this.active;
+      }
+    },
+    checkAll() {
+      //删除后，在删除按钮触发方法中重新调this.checkAll()    
+      this.active = true;
+      for (let i in this.goodslist) {
+        if (!this.goodslist[i].status) {
+          this.active = false;
+          return;
+        }
+      }
+    }
+
     //   selectOneGoods(index) {
     //   var arr2 = [];
     //   for (var i = 0; i < this.$refs.selectOne.length; i++) {
