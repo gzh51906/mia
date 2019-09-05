@@ -1,5 +1,6 @@
 <template>
   <div class="cart">
+<<<<<<< HEAD
       
       <header class = "headerA1 clearfix">
           <div class = "head_left fl">
@@ -19,48 +20,60 @@
         >
             <div class="tit">
                <!-- <van-radio-group v-model="radio">
+=======
+    <header class="headerA1 clearfix">
+      <div class="head_left fl">
+        <span class="h_back"></span>
+      </div>
+      <div class="headtit">购物车</div>
+      <div class="head _right fr">
+        <span class="h_home"></span>
+      </div>
+    </header>
+    <div class="centent">
+      <section class="cartBox store_guoneiziying" v-for="(item,index) in goodslist" :key="index">
+        <div class="tit">
+          <!-- <van-radio-group v-model="radio">
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
                 <van-radio name="1" 
                 checked-color="#ff4e88"
                 @click="changeisok"
                 >蜜芽国内自营</van-radio>
-                </van-radio-group> -->
-                <!-- <input
+          </van-radio-group>-->
+          <!-- <input
                  v-for="(item,index) in shoplist"
                  :key="index"
                  type="checkbox"
                  @click="changeCheck">
                 <span
-                 >蜜芽国内自营</span> -->
-            </div>
-            <div class="card">
-                <!-- <van-radio-group v-model="radio" class="select">
+          >蜜芽国内自营</span>-->
+        </div>
+        <div class="card">
+          <!-- <van-radio-group v-model="radio" class="select">
                 <van-radio name="1" 
                 checked-color="#999"
                 icon-size="16px"
                 ></van-radio>
-                </van-radio-group> -->
-                <!-- <input type="checkbox"
+          </van-radio-group>-->
+          <!-- <input type="checkbox"
                  class="select"
                   ref="selectOne"
                    @click="selectOneGoods(index)
-                  > -->
-                <input type="checkbox"
-                  class="select"
-                 >  
-                <van-card
-                    price="89.00"
-                    desc="绿色"  
-                    title="兔头妈妈甄选重力球吸管杯 水杯防呛学饮杯杯子"
-                    thumb="https://img08.miyabaobei.com/d1/p5/item/17/1782/1782247_normal_4.jpg"
-                    >
-                    <div slot="footer">
-                        <van-stepper v-model="value" />
-                    </div>
-                </van-card>
+          >-->
+          <input type="checkbox" class="select" v-model="item.status" @change="checkAll" />
+          <van-card
+            price="89.00"
+            desc="绿色"
+            title="兔头妈妈甄选重力球吸管杯 水杯防呛学饮杯杯子"
+            thumb="https://img08.miyabaobei.com/d1/p5/item/17/1782/1782247_normal_4.jpg"
+          >
+            <div slot="footer">
+              <van-stepper v-model="value" />
             </div>
-           
-        </section>
-        <!-- <section class = "cartBox store_guoneiziying">
+          </van-card>
+        </div>
+      </section>
+      <!-- <section class = "cartBox store_guoneiziying">
             <div class="tit">
                <van-radio-group v-model="radio">
                 <van-radio name="1" 
@@ -86,36 +99,37 @@
                 </van-card>
             </div>
            
-        </section> -->
-        <div class="clearAll mar25">
-            <a href="">删除选择商品</a>
-        </div>
-        <div class="paybar box-flex-f posi_z">
-            <div class="box-flex-c lt">
-                <!-- <van-radio-group v-model="radio">
+      </section>-->
+      <div class="clearAll mar25">
+        <a href>删除选择商品</a>
+      </div>
+      <div class="paybar box-flex-f posi_z">
+        <div class="box-flex-c lt">
+          <!-- <van-radio-group v-model="radio">
                 <van-radio name="1" 
                 checked-color="#999">全选</van-radio>
-                </van-radio-group> -->
-                <input type="checkbox">
-                <span>全选</span>
-            </div>
-            <div class="box-flex-c md newCart">
-                <div class="totalprice">
-                    <div style="width:180px">
-                        总计(不含税)：
-                        <span class="price">
-                            ￥
-                            <span class="newCart_settle_amount">289.9</span>
-                        </span>
-                    </div>
-                    <a href="" class="box-flex-c rt btnJieSuan">        
-                         结算
-                         <span>(4)</span>
-                    </a>
-                </div>
-            </div>
+          </van-radio-group>-->
+          <input type="checkbox" v-model="active" @change="changeAll" />
+          <span>全选</span>
         </div>
+        <div class="box-flex-c md newCart">
+          <div class="totalprice">
+            <div style="width:180px">
+              总计(不含税)：
+              <span class="price">
+                ￥
+                <span class="newCart_settle_amount">289.9</span>
+              </span>
+            </div>
+            <a href class="box-flex-c rt btnJieSuan">
+              结算
+              <span>(4)</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+<<<<<<< HEAD
    </div> 
      <div class="w2 success empty" v-else>
            <div class="modification">
@@ -127,8 +141,14 @@
               <span class="btn_qdl" @click="gologin">去登录</span>
            </div>
       </div> 
+=======
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
   </div>
 </template>
+
+
+
+
 <script>
 export default {
   data() {
@@ -136,6 +156,7 @@ export default {
       radio: "1",
       value: "",
       isok1: "",
+<<<<<<< HEAD
       goodslist: [1, 2]
     };
   },
@@ -155,6 +176,44 @@ export default {
             name:'home'
         })
     }
+=======
+      goodslist: [{ id: 1 }, { id: 2 }],
+
+      active: false
+    };
+  },
+  computed: {},
+  methods: {
+    changeAll() {
+     
+      for (let i in this.goodslist) {
+        this.goodslist[i].status = this.active;
+      }
+    },
+    checkAll() {
+      //删除后，在删除按钮触发方法中重新调this.checkAll()    
+      this.active = true;
+      for (let i in this.goodslist) {
+        if (!this.goodslist[i].status) {
+          this.active = false;
+          return;
+        }
+      }
+    }
+
+    //   selectOneGoods(index) {
+    //   var arr2 = [];
+    //   for (var i = 0; i < this.$refs.selectOne.length; i++) {
+    //     arr2.push(this.$refs.selectOne[i].checked);
+    //   }
+    //   this.selectOne(arr2);
+    // },
+    // selectOne(arr){
+    //     this.aSelectResult = arr;
+    //  },
+    //  selectAllGoods(index){
+    //  }
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
   }
 };
 </script>
@@ -284,14 +343,25 @@ export default {
   margin-top: 20px;
 }
 .paybar .lt {
+<<<<<<< HEAD
   max-width: 75px;
   line-height: 51px;
   padding-left: 1.06667rem;
+=======
+  /* background: chartreuse; */
+  width: 75px;
+  line-height: 51px;
+
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
   font-size: 14px;
 }
 
 .box-flex-c {
   flex: 1;
+<<<<<<< HEAD
+=======
+  height: 53px;
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
 }
 .paybar {
   text-align: center;
@@ -322,6 +392,7 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #eb3f5f;
+<<<<<<< HEAD
 }
 .w2 {
     max-width: 520px;
@@ -369,6 +440,8 @@ export default {
     color: #666;
     font-size: 16px;
     border: 1px solid #ccc;
+=======
+>>>>>>> 8c149695710db074109e4205a5ef22fa21415308
 }
 </style>
 

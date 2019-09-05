@@ -33,7 +33,7 @@ export default new Router({
 
     ],
   },
-  
+
   {
     name: 'login',
     path: '/login',
@@ -47,7 +47,7 @@ export default new Router({
   {
     name: 'reg',
     path: '/reg',
-    component:Reg,
+    component: Reg,
   },
 
   // 重定向
