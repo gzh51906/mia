@@ -1,5 +1,6 @@
 <template>
   <div class="cart">
+      
       <header class = "headerA1 clearfix">
           <div class = "head_left fl">
               <span class = "h_back"></span>
@@ -9,6 +10,8 @@
               <span class="h_home"></span>
            </div>
       </header>
+      
+    <div class="shopcart" v-if="logined">
     <div class = "centent">
         <section class = "cartBox store_guoneiziying"
                     v-for="(item,index) in goodslist"
@@ -113,42 +116,45 @@
             </div>
         </div>
     </div>
-    
-      
+   </div> 
+     <div class="w2 success empty" v-else>
+           <div class="modification">
+               <img src="https://img.miyabaobei.com/d1/p5/2016/11/14/35/92/35923045c62da157432add71ffcea861189139729.png" alt="">
+           </div>
+           <div class="hint">您的购物车是空的哦！</div>
+           <div class="btngroup">
+              <span class="btn_sbkk" @click="tohome">随便看看</span>
+              <span class="btn_qdl" @click="gologin">去登录</span>
+           </div>
+      </div> 
   </div>
-
 </template>
 <script>
 export default {
   data() {
     return {
       radio: "1",
-      value:"",
-      isok1:"",
-      goodslist:[1,2],
+      value: "",
+      isok1: "",
+      goodslist: [1, 2]
     };
   },
-  computed:{
-    
+  computed: {
+      logined(){
+        return !!this.$store.state.authorization
+      }
   },
-  methods:{
-       
-    //   selectOneGoods(index) {
-    //   var arr2 = [];
-    //   for (var i = 0; i < this.$refs.selectOne.length; i++) {
-    //     arr2.push(this.$refs.selectOne[i].checked);
-    //   }
-    //   this.selectOne(arr2);
-    // },
-    // selectOne(arr){
-    //     this.aSelectResult = arr;
-    //  },
-    //  selectAllGoods(index){
-         
-    //  }
-     
-
-     
+  methods: {
+    gologin(){
+        this.$router.push({
+            name:'login'
+        })
+    },
+    tohome(){
+        this.$router.push({
+            name:'home'
+        })
+    }
   }
 };
 </script>
@@ -227,94 +233,142 @@ export default {
 .tit {
   font-size: 12px;
 }
-.card{
-    position: relative;
+.card {
+  position: relative;
 }
-.select{
+.select {
   position: absolute;
-  top:30px;
-  left:1px;
+  top: 30px;
+  left: 1px;
   z-index: 99;
 }
 .clearAll {
-    padding: .4rem 0;
-    text-align: center;
-    background-color: #fbfbfb;
-    font-size: .4rem;
-    margin-bottom: 2rem;
+  padding: 0.4rem 0;
+  text-align: center;
+  background-color: #fbfbfb;
+  font-size: 0.4rem;
+  margin-bottom: 2rem;
 }
-.clearAll>a {
-    padding: .16rem 16px .16rem 16px;
-    background: url(https://mfile01.miyabaobei.com/resources/images/m/wap/icon-clear.png) 0px center no-repeat;
-    -webkit-background-size: 16px auto;
-    background-size: 16px auto;
-    color: #666;
-    margin-right: 10px;
+.clearAll > a {
+  padding: 0.16rem 16px 0.16rem 16px;
+  background: url(https://mfile01.miyabaobei.com/resources/images/m/wap/icon-clear.png)
+    0px center no-repeat;
+  -webkit-background-size: 16px auto;
+  background-size: 16px auto;
+  color: #666;
+  margin-right: 10px;
 }
 .box-flex-f {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .paybar {
-    position: fixed;
-    width: 100%;
-    max-width: 640px;
-    bottom: 44px;
-    height: 51px;
-    line-height: 51px;
-    font-size: .37333rem;
-    background-color: #fff;
-    vertical-align: middle;
-    text-align: center;
-    z-index: 100;
+  position: fixed;
+  width: 100%;
+  max-width: 640px;
+  bottom: 44px;
+  height: 51px;
+  line-height: 51px;
+  font-size: 0.37333rem;
+  background-color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 100;
 }
-.van-radio{
-    margin-top:20px;
+.van-radio {
+  margin-top: 20px;
 }
 .paybar .lt {
-    max-width: 75px;
-    line-height: 51px;
-    padding-left: 1.06667rem;
-    font-size:14px;
+  max-width: 75px;
+  line-height: 51px;
+  padding-left: 1.06667rem;
+  font-size: 14px;
 }
 
-.box-flex-c{
-    flex:1
+.box-flex-c {
+  flex: 1;
 }
-.paybar{
-    text-align: center
+.paybar {
+  text-align: center;
 }
- .totalprice {
-    color: #333;
-    font-size: .29333rem;
-    padding-right: 3.2rem;
-    position: relative;
-    height: 51px;
-    line-height: 51px;
-    padding-top: .13333rem;
+.totalprice {
+  color: #333;
+  font-size: 0.29333rem;
+  padding-right: 3.2rem;
+  position: relative;
+  height: 51px;
+  line-height: 51px;
+  padding-top: 0.13333rem;
 }
 .price {
-    color: #e74291;
+  color: #e74291;
 }
 .price span {
-    font-size: 18px;
+  font-size: 18px;
 }
 .rt {
-    font-size:18px;
+  font-size: 18px;
+  text-align: center;
+  position: absolute;
+  width: 110px;
+  line-height: 51px;
+  color: #fff;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #eb3f5f;
+}
+.w2 {
+    max-width: 520px;
+    min-width: 300px;
+    margin: 50px auto 0;
+    padding: 0 .625rem;
+}
+.modification {
+    width: 95px;
+    height: 92px;
+    margin: 0 auto;
+    
+}
+.modification img {
+    width: 100%;
+}
+.hint {
+    line-height: 22px;
     text-align: center;
-    position: absolute;
-    width: 110px;
-    line-height: 51px;
+    padding: 10px 0;
+    color: #999;
+}
+.btngroup {
+    margin-top: 20px;
+    text-align: center;
+}
+.btn_sbkk{
+    display: inline-block;
+    width: 30%;
+    padding: 0;
+    margin: 0 5%;
+    padding: 8px 0;
+    border-radius: 0;
     color: #fff;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #eb3f5f;
+    background-color: #ff4e88;
+    font-size: 16px;
+}
+.btn_qdl{
+    display: inline-block;
+    width: 30%;
+    padding: 0;
+    margin: 0 5%;
+    padding: 8px 0;
+    border-radius: 0;
+    color: #666;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }
 </style>
 

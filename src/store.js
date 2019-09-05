@@ -11,6 +11,7 @@ export default new Vuex.Store({
      login(state,authorization){
           localStorage.setItem('Authorization',authorization)
           state.authorization = authorization
+          console.log(authorization)
      }
   },
   actions: {
