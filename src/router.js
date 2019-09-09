@@ -8,8 +8,10 @@ import Home from './views/Tabbar/Home'
 import Classify from './views/Tabbar/Classify'
 import Cart from './views/Tabbar/Cart'
 import Login from './views/Login'
+import List from './views/List'
 import Detail from './views/Detail'
 import Reg from './views/Reg'
+import Mine from './views/Mine'
 export default new Router({
   routes: [{
     path: '/tabbar',
@@ -49,6 +51,17 @@ export default new Router({
     path: '/reg',
     component: Reg,
   },
+  {
+    name: 'list',
+    path: '/list',
+    component: List,
+  },
+  {
+    name: 'mine',
+    path: '/mine',
+    component: Mine,
+  },
+
 
   // 重定向
   {

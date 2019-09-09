@@ -12,14 +12,17 @@
                         <input type="text"
                          placeholder="请输入手机号"
                          v-model="username"
-                         @blur="checkphone"
+                         
+                         @blur="checkphone($event)"
                          >
                     </div>
+                    
                      <div class = "login_con input_mess input_password borbNone">
                         <input type="text" 
                         placeholder="请输入密码"
                         v-model="password"
-                        @blur="checkpsw"
+                        
+                        @blur="checkpsw($event)"
                         >
                     </div>
                 </div>
@@ -47,25 +50,36 @@ export default {
   },
   methods: {
     //手机号码验证
-    checkphone() {
-      let reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
-      this.phoneright = reg.test(this.username);
-      if (this.username == "") {
-        alert("手机号不能为空");
-        this.isok1 = false;
-      } else if (!this.phoneright) {
-        alert("请输入正确的手机号");
-        this.isok1 = false;
-      } else {
-        this.isok1 = true;
+    checkphone(e) {
+      // console.log('e.relatedTarget',e.relatedTarget)
+      // console.log('e.relatedTarget',e.relatedTarget.id)
+      if (e.relatedTarget) {
+        let reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        this.phoneright = reg.test(this.username);
+        if (this.username == "") {
+          alert("手机号不能为空");
+          this.isok1 = false;
+        } else if (!this.phoneright) {
+          alert("请输入正确的手机号");
+          this.isok1 = false;
+        } else {
+          this.isok1 = true;
+        }
       }
     },
-    checkpsw() {
-      if (!this.password) {
-        alert("密码不能为空");
-        this.isok2 = false;
-      } else {
-        this.isok2 = true;
+    checkpsw(e) {
+      // console.log('e',e)
+      // console.log('e.relatedTarget',e.relatedTarget)
+      // console.log('e.relatedTarget',e.relatedTarget.id)
+      if(e.relatedTarget){
+        if (!this.password) {
+          alert("密码不能为空");
+          this.isok2 = false;
+      //     console.log('e.relatedTarget',e.relatedTarget)
+      // console.log('e.relatedTarget',e.relatedTarget.id)
+        } else {
+          this.isok2 = true;
+        }
       }
     },
     gologin() {
@@ -80,10 +94,13 @@ export default {
             if (res.data.code == 1) {
               //保存token到本地
               this.$store.commit("login", res.data.data.authorization);
+              localStorage.setItem("username", this.username);
               //   let targetUrl = this.$route.query.targetUrl
-              this.$router.push({ name: "reg" });
-            }else{
-                alert('用户名或者密码错误')
+              this.$router.push({
+                name: "home"
+              });
+            } else {
+              alert("用户名或者密码错误");
             }
           });
       }

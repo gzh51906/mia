@@ -14,12 +14,16 @@
         <van-icon name="apps-o" size="22px" />
         <br />分类
       </van-tabbar-item>
-      <van-tabbar-item to="cart">
+      <van-tabbar-item :to="{name:'cart'}">
         <van-icon name="shopping-cart-o" size="22px" />
         <br />购物车
       </van-tabbar-item>
 
-      <van-tabbar-item to="mine">
+      <van-tabbar-item to="/login" v-if="logined">
+        <van-icon name="manager" size="22px" />
+        <br />去登陆
+      </van-tabbar-item>
+      <van-tabbar-item to="/mine" v-else>
         <van-icon name="manager" size="22px" />
         <br />我的
       </van-tabbar-item>
@@ -71,7 +75,13 @@ export default {
         name
       });
     }
+  },
+  computed:{
+    logined(){
+      return !this.$store.state.authorization
+    }
   }
+
 };
 </script>
 

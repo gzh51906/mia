@@ -1,10 +1,8 @@
 <template>
-  <div class="cart">
-<<<<<<< HEAD
-      
+  <div class="cart">     
       <header class = "headerA1 clearfix">
           <div class = "head_left fl">
-              <span class = "h_back"></span>
+              <span class = "h_back" @click="back"></span>
           </div>
           <div class = "headtit">购物车</div>
           <div class = "head_right fr">
@@ -12,96 +10,32 @@
            </div>
       </header>
       
-    <div class="shopcart" v-if="logined">
+    <div class="shopcart" v-if="empty">
     <div class = "centent">
         <section class = "cartBox store_guoneiziying"
-                    v-for="(item,index) in goodslist"
+                    v-for="(item,index) in cartlist"
                     :key="index"
         >
-            <div class="tit">
-               <!-- <van-radio-group v-model="radio">
-=======
-    <header class="headerA1 clearfix">
-      <div class="head_left fl">
-        <span class="h_back"></span>
-      </div>
-      <div class="headtit">购物车</div>
-      <div class="head _right fr">
-        <span class="h_home"></span>
-      </div>
-    </header>
-    <div class="centent">
-      <section class="cartBox store_guoneiziying" v-for="(item,index) in goodslist" :key="index">
-        <div class="tit">
-          <!-- <van-radio-group v-model="radio">
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
-                <van-radio name="1" 
-                checked-color="#ff4e88"
-                @click="changeisok"
-                >蜜芽国内自营</van-radio>
-          </van-radio-group>-->
-          <!-- <input
-                 v-for="(item,index) in shoplist"
-                 :key="index"
-                 type="checkbox"
-                 @click="changeCheck">
-                <span
-          >蜜芽国内自营</span>-->
+            <div class="tit">             
         </div>
         <div class="card">
-          <!-- <van-radio-group v-model="radio" class="select">
-                <van-radio name="1" 
-                checked-color="#999"
-                icon-size="16px"
-                ></van-radio>
-          </van-radio-group>-->
-          <!-- <input type="checkbox"
-                 class="select"
-                  ref="selectOne"
-                   @click="selectOneGoods(index)
-          >-->
-          <input type="checkbox" class="select" v-model="item.status" @change="checkAll" />
+          <input type="checkbox" class="select" v-model="item.status"  @change="changeAll"/>
           <van-card
-            price="89.00"
+            :price="item.a"
             desc="绿色"
-            title="兔头妈妈甄选重力球吸管杯 水杯防呛学饮杯杯子"
-            thumb="https://img08.miyabaobei.com/d1/p5/item/17/1782/1782247_normal_4.jpg"
+            :title="item.name"
+            :thumb="item.m_search_pic"
           >
             <div slot="footer">
-              <van-stepper v-model="value" />
+              <van-stepper v-model="item.qty" />
             </div>
           </van-card>
+          <span class="del" @click="remove(item.id)">x</span>
         </div>
       </section>
-      <!-- <section class = "cartBox store_guoneiziying">
-            <div class="tit">
-               <van-radio-group v-model="radio">
-                <van-radio name="1" 
-                checked-color="#999">蜜芽国内自营</van-radio>
-                </van-radio-group>
-            </div>
-            <div class="card">
-                <van-radio-group v-model="radio" class="select">
-                <van-radio name="1" 
-                checked-color="#999"
-                icon-size="16px"
-                ></van-radio>
-                </van-radio-group>
-                <van-card
-                    price="89.00"
-                    desc="绿色"  
-                    title="兔头妈妈甄选重力球吸管杯 水杯防呛学饮杯杯子"
-                    thumb="https://img08.miyabaobei.com/d1/p5/item/17/1782/1782247_normal_4.jpg"
-                    >
-                    <div slot="footer">
-                        <van-stepper v-model="value" />
-                    </div>
-                </van-card>
-            </div>
-           
-      </section>-->
-      <div class="clearAll mar25">
-        <a href>删除选择商品</a>
+      
+      <div class="clearAll mar25" @click="removeAll">
+       <span>删除选择商品</span>
       </div>
       <div class="paybar box-flex-f posi_z">
         <div class="box-flex-c lt">
@@ -109,7 +43,7 @@
                 <van-radio name="1" 
                 checked-color="#999">全选</van-radio>
           </van-radio-group>-->
-          <input type="checkbox" v-model="active" @change="changeAll" />
+          <input type="checkbox"  v-model="active"  @change="checkAll" />
           <span>全选</span>
         </div>
         <div class="box-flex-c md newCart">
@@ -118,18 +52,17 @@
               总计(不含税)：
               <span class="price">
                 ￥
-                <span class="newCart_settle_amount">289.9</span>
+                <span class="newCart_settle_amount">{{totalPrice}}</span>
               </span>
             </div>
             <a href class="box-flex-c rt btnJieSuan">
               结算
-              <span>(4)</span>
+              <span>{{"("+totalNum+")"}}</span>
             </a>
           </div>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
    </div> 
      <div class="w2 success empty" v-else>
            <div class="modification">
@@ -141,8 +74,6 @@
               <span class="btn_qdl" @click="gologin">去登录</span>
            </div>
       </div> 
-=======
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
   </div>
 </template>
 
@@ -154,68 +85,100 @@ export default {
   data() {
     return {
       radio: "1",
-      value: "",
       isok1: "",
-<<<<<<< HEAD
-      goodslist: [1, 2]
+      // active:true,
     };
   },
-  computed: {
+  created(){
+    if(this.$store.state.cartlist.length===0){
+      let a = sessionStorage.getItem('goodslist')
+         a=JSON.parse(a)
+         if(a!==null){
+           this.$store.commit('resetItem',a)
+         }
+    }
+      // console.log(!(this.$store.state.cartlist.length === 0))
+    // console.log(!!this.$store.state.authorization)
+    // console.log(localStorage.getItem('Authorization'))
+    this.$store.state.authorization=!!this.$store.state.authorization||localStorage.getItem('Authorization')
+    // console.log(this.$store.state.cartlist)
+  },
+  computed: { 
       logined(){
         return !!this.$store.state.authorization
+      },
+      empty(){
+           return !(this.$store.state.cartlist.length === 0)
+      },
+      cartlist(){
+         return this.$store.state.cartlist
+      },
+      totalPrice(){
+        return this.$store.getters.totalPrice.toFixed(2)
+      },
+      totalNum(){
+        return this.$store.getters.totalNum
+      }, 
+      // active(){
+      //   return this.$store.state.active
+      // }
+      active:{
+        get(){
+          return this.$store.state.active
+        },
+        set(value){
+          this.$store.commit('changeActive',value)
+        }
       }
   },
-  methods: {
-    gologin(){
+    methods: {
+       gologin(){
         this.$router.push({
             name:'login'
         })
+    },
+    back(){
+      history.go(-1)
     },
     tohome(){
         this.$router.push({
             name:'home'
         })
-    }
-=======
-      goodslist: [{ id: 1 }, { id: 2 }],
-
-      active: false
-    };
-  },
-  computed: {},
-  methods: {
-    changeAll() {
-     
-      for (let i in this.goodslist) {
-        this.goodslist[i].status = this.active;
-      }
     },
-    checkAll() {
-      //删除后，在删除按钮触发方法中重新调this.checkAll()    
-      this.active = true;
-      for (let i in this.goodslist) {
-        if (!this.goodslist[i].status) {
-          this.active = false;
-          return;
-        }
-      }
-    }
-
-    //   selectOneGoods(index) {
-    //   var arr2 = [];
-    //   for (var i = 0; i < this.$refs.selectOne.length; i++) {
-    //     arr2.push(this.$refs.selectOne[i].checked);
+    remove(id){
+       console.log(id)
+        this.$store.commit('removeItem',id)
+    },
+    removeAll(){
+      console.log(666)
+      this.$store.commit('removeAll')
+    },
+    // changeAll() {     
+    //   for (let i in this.cartlist) {
+    //     this.cartlist[i].status = this.active;
     //   }
-    //   this.selectOne(arr2);
     // },
-    // selectOne(arr){
-    //     this.aSelectResult = arr;
-    //  },
-    //  selectAllGoods(index){
-    //  }
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
+      changeAll(){
+         this.$store.commit('changeAll')
+      },
+      checkAll(){
+        this.$store.commit('checkAll')
+      }
+    // checkAll() {
+    //   //删除后，在删除按钮触发方法中重新调this.checkAll()    
+    //   this.active = true;
+    //   for (let i in this.cartlist) {
+    //     if (!this.cartlist[i].status) {
+    //       this.active = false;
+    //       return;
+    //     }
+    //   }
+    // }
+
   }
-};
+  }
+  
+
 </script>
 
 <style scoped>
@@ -295,6 +258,11 @@ export default {
 .card {
   position: relative;
 }
+.del{
+  position: absolute;
+  right:2px;
+  top:2px
+}
 .select {
   position: absolute;
   top: 30px;
@@ -308,7 +276,7 @@ export default {
   font-size: 0.4rem;
   margin-bottom: 2rem;
 }
-.clearAll > a {
+.clearAll > span {
   padding: 0.16rem 16px 0.16rem 16px;
   background: url(https://mfile01.miyabaobei.com/resources/images/m/wap/icon-clear.png)
     0px center no-repeat;
@@ -343,25 +311,16 @@ export default {
   margin-top: 20px;
 }
 .paybar .lt {
-<<<<<<< HEAD
-  max-width: 75px;
-  line-height: 51px;
-  padding-left: 1.06667rem;
-=======
   /* background: chartreuse; */
   width: 75px;
   line-height: 51px;
 
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
   font-size: 14px;
 }
 
 .box-flex-c {
   flex: 1;
-<<<<<<< HEAD
-=======
   height: 53px;
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
 }
 .paybar {
   text-align: center;
@@ -392,7 +351,6 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #eb3f5f;
-<<<<<<< HEAD
 }
 .w2 {
     max-width: 520px;
@@ -440,8 +398,6 @@ export default {
     color: #666;
     font-size: 16px;
     border: 1px solid #ccc;
-=======
->>>>>>> 8c149695710db074109e4205a5ef22fa21415308
 }
 </style>
 
