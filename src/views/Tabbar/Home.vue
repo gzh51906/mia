@@ -195,7 +195,7 @@ export default {
     );
 
     let shops = await this.$axios.get(
-      "https://m.mia.com/instant/seckill/seckillPromotionItem/91841/1"
+      "https://m.mia.com/instant/seckill/seckillPromotionItem/91886/1"
     );
 
     let listdata = await this.$axios.get(

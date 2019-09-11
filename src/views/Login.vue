@@ -18,7 +18,7 @@
                     </div>
                     
                      <div class = "login_con input_mess input_password borbNone">
-                        <input type="text" 
+                        <input type="password" 
                         placeholder="请输入密码"
                         v-model="password"
                         
@@ -33,6 +33,7 @@
                      @click = "gologin"
                       >
                 </div>
+                <span class="gotoreg" @click="gotoreg">去注册</span>
             </section>
         </div>
     </div>
@@ -85,7 +86,7 @@ export default {
     gologin() {
       if (this.isok1 == true && this.isok2 == true) {
         this.$axios
-          .post("http://localhost:1906/user/login", {
+          .post("http://47.104.103.240:1906/user/login", {
             username: this.username,
             password: this.password
           })
@@ -104,6 +105,11 @@ export default {
             }
           });
       }
+    },
+    gotoreg(){
+      this.$router.push({
+        name:'reg'
+      })
     }
   }
 };
@@ -175,6 +181,9 @@ header {
   width: 100%;
   text-align: center;
   border: none;
+}
+.gotoreg{
+  color:#ff4e88;
 }
 </style>
 

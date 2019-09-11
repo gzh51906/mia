@@ -12,14 +12,14 @@
                         <input type="text"
                          placeholder="请输入手机号"
                          v-model="username"
-                         @blur="checkphone"
+                         @blur="checkphone($event)"
                          >
                     </div>
                      <div class = "login_con input_mess input_password borbNone">
-                        <input type="text" 
+                        <input type="password" 
                         placeholder="请输入密码"
                         v-model="password"
-                        @blur="checkpsw"
+                        @blur="checkpsw($event)"
                         >
                     </div>
                 </div>
@@ -48,7 +48,11 @@ export default {
     },
     methods:{
         //手机号码验证
-        checkphone(){
+        checkphone(e){
+
+            if(e.relatedTarget){
+
+            
             let reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
             this.phoneright = reg.test(this.username);
             if(this.username == ""){
@@ -58,7 +62,7 @@ export default {
                 alert('请输入正确的手机号')
                 this.isok1 = false;
             }else{         
-               this.$axios.get('http://localhost:1906/user/check',{
+               this.$axios.get('http://47.104.103.240:1906/user/check',{
                     params:{
                         username:this.username
                     }
@@ -73,13 +77,16 @@ export default {
                     }
                 })
             }
+            }
         },
-        checkpsw(){
+        checkpsw(e){
+           if(e.relatedTarget){ 
            if(!this.password){
              alert('密码不能为空');
              this.isok2 = false
            }else{
               this.isok2 = true 
+           }
            }
         },
         goReg(){
